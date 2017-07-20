@@ -11,6 +11,8 @@ $user=YOURLS_DB_USER;
 $pass=YOURLS_DB_PASS;
 $prefix=YOURLS_DB_PREFIX;
 
+$base_uri = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+
 try {
 	$conn = new PDO("mysql:host=$host;port=$port;dbname=$db", $user, $pass);
 	$conn ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -22,7 +24,7 @@ try {
 	//print_r($result);
 	print "<table>\n";
 	foreach ($result as $v) {
-		print ("<tr><td>$v[0]</td><td>$v[1]</td>\n");
+		print ("<tr><td><a href=\"$base_uri/$v[0]\">$v[0]</a></td><td>$v[1]</td>\n");
 	}
 	print "</table>\n";
 }
