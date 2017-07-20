@@ -23,9 +23,21 @@ try {
 	$result = $sql->fetchAll();
 	//print_r($result);
 	print "<table>\n";
+	print "  <caption>Short Links on lib.ucsd.edu</caption>\n";
+	print "  <thead>\n";
+	print "    <tr>\n";
+	print "      <th scope=\"col\">Short Link</th>\n";
+	print "      <th scope=\"col\">Full Path</th>\n";
+	print "    </tr>\n";
+	print "  </thead>\n";
+	print "  <tbody>\n";
 	foreach ($result as $v) {
-		print ("<tr><td><a href=\"$base_uri/$v[0]\">$v[0]</a></td><td>$v[1]</td>\n");
+		print "    <tr>\n";
+		print "      <td><a href=\"$base_uri/$v[0]\">$v[0]</a></td>\n";
+		print "      <td>$v[1]</td>\n";
+		print "    </tr>\n";
 	}
+	print "  </tbody>\n";
 	print "</table>\n";
 }
 catch(PDOException $e) {
