@@ -1,0 +1,19 @@
+#!/bin/sh
+
+API='http://phpcodechecker.com/api/'
+json_formatter="${JSON_FORMAT:-json_reformat}"
+
+cd "$(dirname "$0")" || exit 1
+
+if command -v "$json_formatter" >/dev/null; then
+  filter="$json_formatter"
+else
+  filter=cat
+fi
+
+curl \
+  --data "code=$(cat ../src/yourls-dump.php)" \
+  --show-error \
+  --silent \
+  "$API" \
+  | $filter
