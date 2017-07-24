@@ -11,7 +11,10 @@ $db_user=YOURLS_DB_USER;
 $db_pass=YOURLS_DB_PASS;
 $db_prefix=YOURLS_DB_PREFIX;
 
-$base_uri = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
+$http_scheme = $_SERVER['REQUEST_SCHEME'];
+$http_host = $_SERVER['HTTP_HOST'];
+
+$base_uri = "$http_scheme://$http_host";
 
 try {
   $conn = new PDO("mysql:host=$db_host;port=$db_port;dbname=$db_name", $db_user, $db_pass);
@@ -23,7 +26,7 @@ try {
   $result = $sql->fetchAll();
   //print_r($result);
   print "<table>\n";
-  print "  <caption>Short Links on lib.ucsd.edu</caption>\n";
+  print "  <caption>Short Links on $http_host</caption>\n";
   print "  <thead>\n";
   print "    <tr>\n";
   print "      <th scope=\"col\">Short Link</th>\n";
