@@ -4,15 +4,15 @@ include_once('%INSTALL_DIR%/user/config.php');
 
 $server_parts = explode (":", YOURLS_DB_HOST);
 
-$db_name=YOURLS_DB_NAME;
-$db_host=$server_parts[0];
-$db_port=$server_parts[1];
-$db_user=YOURLS_DB_USER;
-$db_pass=YOURLS_DB_PASS;
-$db_prefix=YOURLS_DB_PREFIX;
+$db_name   = YOURLS_DB_NAME;
+$db_host   = $server_parts[0];
+$db_port   = $server_parts[1];
+$db_user   = YOURLS_DB_USER;
+$db_pass   = YOURLS_DB_PASS;
+$db_prefix = YOURLS_DB_PREFIX;
 
 $http_scheme = $_SERVER['REQUEST_SCHEME'];
-$http_host = $_SERVER['HTTP_HOST'];
+$http_host   = $_SERVER['HTTP_HOST'];
 
 $base_uri = "$http_scheme://$http_host";
 
