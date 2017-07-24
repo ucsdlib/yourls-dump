@@ -4,19 +4,19 @@ include_once('%INSTALL_DIR%/user/config.php');
 
 $server_parts = explode (":", YOURLS_DB_HOST);
 
-$db=YOURLS_DB_NAME;
-$host=$server_parts[0];
-$port=$server_parts[1];
-$user=YOURLS_DB_USER;
-$pass=YOURLS_DB_PASS;
-$prefix=YOURLS_DB_PREFIX;
+$db_name=YOURLS_DB_NAME;
+$db_host=$server_parts[0];
+$db_port=$server_parts[1];
+$db_user=YOURLS_DB_USER;
+$db_pass=YOURLS_DB_PASS;
+$db_prefix=YOURLS_DB_PREFIX;
 
 $base_uri = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
 
 try {
-  $conn = new PDO("mysql:host=$host;port=$port;dbname=$db", $user, $pass);
+  $conn = new PDO("mysql:host=$db_host;port=$db_port;dbname=$db_name", $db_user, $db_pass);
   $conn ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $sql = $conn -> prepare("SELECT keyword, url from ${prefix}url order by keyword");
+  $sql = $conn -> prepare("SELECT keyword, url from ${db_prefix}url order by keyword");
   $sql -> execute();
 
   //$result = $sql->setFetchMode(PDO::FETCH_ASSOC);
