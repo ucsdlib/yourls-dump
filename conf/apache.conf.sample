@@ -1,0 +1,8 @@
+# Apache 2.4
+
+alias /yourls-dump.html /opt/yourls-dump/yourls-dump.php
+<Directory /opt/yourls-dump/>
+  AllowOverride All
+  Options All
+  require all granted
+</Directory>
