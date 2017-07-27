@@ -1,0 +1,5 @@
+<?php
+define ( 'YOURLS_CONFIG', '/opt/yourls/user/config.php' );
+
+$footer_extra = '';
+$header_extra = 'Full list of Short Links on %1$s.';
