@@ -1,6 +1,8 @@
 <?php
 
-include_once('%INSTALL_DIR%/user/config.php');
+$here=dirname(__FILE__);
+include_once("$here/yourls-dump.config.php");
+include_once(YOURLS_CONFIG);
 
 $server_parts = explode (":", YOURLS_DB_HOST);
 
@@ -22,26 +24,24 @@ try {
   $sql = $conn -> prepare("SELECT keyword, url from ${db_prefix}url order by keyword");
   $sql -> execute();
 
-  //$result = $sql->setFetchMode(PDO::FETCH_ASSOC);
   $result = $sql->fetchAll();
-  //print_r($result);
-  print "<table>\n";
-  print "  <caption>Short Links on $http_host</caption>\n";
-  print "  <thead>\n";
-  print "    <tr>\n";
-  print "      <th scope=\"col\">Short Link</th>\n";
-  print "      <th scope=\"col\">Full Path</th>\n";
-  print "    </tr>\n";
-  print "  </thead>\n";
-  print "  <tbody>\n";
-  foreach ($result as $v) {
-    print "    <tr>\n";
-    print "      <td><a href=\"$base_uri/$v[0]\">$v[0]</a></td>\n";
-    print "      <td>$v[1]</td>\n";
-    print "    </tr>\n";
+
+  $header = fopen('yourls-dump-header.txt', 'rb');
+  $item   = file_get_contents('yourls-dump-item.txt');
+  $footer = fopen('yourls-dump-footer.txt', 'rb');
+
+  while (($line = fgets($header)) !== false ) {
+    printf ($line, $http_host, $header_extra);
   }
-  print "  </tbody>\n";
-  print "</table>\n";
+  fclose ($header);
+
+  foreach ($result as $v) {
+    printf( $item, $base_uri, $v[0], $v[1]);
+  }
+
+  while (($line = fgets($footer)) !== false ) {
+    printf ($line, $http_host, $footer_extra);
+  }
 }
 catch(PDOException $e) {
   echo "Connection failed: " . $e->getMessage();
